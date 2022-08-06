@@ -24,6 +24,7 @@ was_open = False
 r = requests.get(branch_endpoint, auth=('kay', git_password))
 if package in r.json(): # if there already is a pull request open, change there
 	print("Pull request already open...")
+	os.system(f'git remote set-branches origin "{package}"')
 	os.system(f'git checkout {package}')
 	was_open = True
 
