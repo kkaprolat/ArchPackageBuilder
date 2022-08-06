@@ -4,6 +4,7 @@ LABEL ver="1"
 
 COPY ca.pem /ca.pem
 COPY entrypoint.sh /entrypoint.sh
+COPY build_package.sh /build_package.sh
 RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf && \
     sed -i 's/ParallelDownloads = 5/ParallelDownloads = 10/g' /etc/pacman.conf && \
     mkdir -p /etc/gnupg && \
@@ -21,4 +22,5 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
 USER aur
 WORKDIR /home/aur
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/build_package.sh"]
+# ENTRYPOINT ["/entrypoint.sh"]
