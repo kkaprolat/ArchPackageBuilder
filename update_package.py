@@ -36,7 +36,7 @@ pull_request_template = {"targetProjectId": project_id,
 	"description": "",
 	"mergeStrategy": "CREATE_MERGE_COMMIT",
 	"reviewerIds": [reviewer_id],
-	"asigneeIds": [reviewer_id]}
+	"assigneeIds": [reviewer_id]}
 
 login_template = f"""machine git.aurum.lan
   login kay
