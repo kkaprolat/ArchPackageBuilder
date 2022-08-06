@@ -35,8 +35,8 @@ pull_request_template = {"targetProjectId": project_id,
 	"title": f"Package '{package}' has changes",
 	"description": "",
 	"mergeStrategy": "CREATE_MERGE_COMMIT",
-	"reviewerIds": [reviewer_id],
-	"assigneeIds": [reviewer_id]}
+	"reviewerIds": [],
+	"assigneeIds": []}
 
 login_template = f"""machine git.aurum.lan
   login kay
