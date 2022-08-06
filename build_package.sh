@@ -6,10 +6,8 @@ if [[ -z "$1" ]]; then
 	exit 1
 fi
 
-ls -lAh
-pwd
-git clone https://aur.archlinux.org/"$1".git "$1"_tmp
-mkdir -p "$1"
+sudo git clone https://aur.archlinux.org/"$1".git "$1"_tmp
+sudo mkdir -p "$1"
 diff -qrN "$1" "$1_tmp
 
 # then check if diff is non-empty (i.e. there are changes)
