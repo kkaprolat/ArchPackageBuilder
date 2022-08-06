@@ -6,6 +6,8 @@ if [[ -z "$1" ]]; then
 	exit 1
 fi
 
+ls -lAh
+pwd
 git clone https://aur.archlinux.org/"$1".git "$1"_tmp
 mkdir -p "$1"
 diff -qrN "$1" "$1_tmp
