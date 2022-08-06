@@ -8,7 +8,7 @@ fi
 
 sudo git clone https://aur.archlinux.org/"$1".git "$1"_tmp
 sudo mkdir -p "$1"
-diff -qrN "$1" "$1_tmp
+diff -qrN "$1" "$1"_tmp
 
 # then check if diff is non-empty (i.e. there are changes)
 # if there are, remove old directory and make tmp to new, else delete tmp
