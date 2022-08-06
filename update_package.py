@@ -38,22 +38,22 @@ with open('/home/root/.netrc', 'w') as f:
 
 
 # backup old package files so new ones don't overwrite
-os.system(f'sudo mkdir -p {package}')
-os.system(f'sudo mv {package} {package}_old')
+os.system(f'mkdir -p {package}')
+os.system(f'mv {package} {package}_old')
 
 # download new package files
-exit_if_failed(os.system(f'sudo wget https://aur.archlinux.org/cgit/aur.git/snapshot/{package}.tar.gz'))
-exit_if_failed(os.system(f'sudo tar -xvf {package}.tar.gz'))
+exit_if_failed(os.system(f'wget https://aur.archlinux.org/cgit/aur.git/snapshot/{package}.tar.gz'))
+exit_if_failed(os.system(f'tar -xvf {package}.tar.gz'))
 
 # move new files to {package}_tmp and reset name of old files
-exit_if_failed(os.system(f'sudo mv {package} {package}_tmp'))
-exit_if_failed(os.system(f'sudo mv {package}_old {package}'))
+exit_if_failed(os.system(f'mv {package} {package}_tmp'))
+exit_if_failed(os.system(f'mv {package}_old {package}'))
 
 if os.waitstatus_to_exitcode(os.system(f'diff -qrN {package} {package}_tmp')) != 0:
-	os.system(f'sudo git switch -c {package}')
-	os.system(f'sudo rm -rf {package}')
-	os.system(f'sudo mv {package}_tmp {package}')
-	os.system(f'sudo git add .')
-	os.system(f'sudo git commit -m "update {package}"')
-	os.system(f'sudo git push -u origin {package}')
+	os.system(f'git switch -c {package}')
+	os.system(f'rm -rf {package}')
+	os.system(f'mv {package}_tmp {package}')
+	os.system(f'git add .')
+	os.system(f'git commit -m "update {package}"')
+	os.system(f'git push -u origin {package}')
 
