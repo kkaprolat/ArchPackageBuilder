@@ -17,6 +17,7 @@ package = sys.argv[1]
 project_id = 1
 reviewer_id = 1
 endpoint = "https://git.aurum.lan/api/pull-requests"
+git_password = os.environ['GIT_PASSWORD']
 
 pull_request_template = {"targetProjectId": project_id,
 	"sourceProjectId": project_id,
@@ -27,6 +28,13 @@ pull_request_template = {"targetProjectId": project_id,
 	"mergeStrategy": "CREATE_MERGE_COMMIT",
 	"reviewerIds": [reviewer_id],
 	"asigneeIds": [reviewer_id]}
+
+login_template = f"""machine git.aurum.lan
+  login kay
+  password {git_password}"""
+
+with open('/home/root/.netrc', w) as f:
+	f.write(login_template)
 
 
 # backup old package files so new ones don't overwrite

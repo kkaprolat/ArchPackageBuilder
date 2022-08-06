@@ -17,7 +17,9 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     mkdir -p /run/user/1000 && chown 1000:1000 /run/user/1000 && \
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers && \
     useradd --uid 1000 --shell /bin/bash --groups wheel --create-home aur && \
-    chmod +x /build_package.py
+    chmod +x /build_package.py && \
+    git config --global user.email "kakaoh6@gmail.com" && \
+    git config --global user.name "Kay Kaprolat"
 
 USER aur
 WORKDIR /home/aur
