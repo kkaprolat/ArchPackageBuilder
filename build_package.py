@@ -33,7 +33,7 @@ login_template = f"""machine git.aurum.lan
   login kay
   password {git_password}"""
 
-with open('/home/root/.netrc', w) as f:
+with open('/home/root/.netrc', 'w') as f:
 	f.write(login_template)
 
 
