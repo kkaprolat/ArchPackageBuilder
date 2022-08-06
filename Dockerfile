@@ -12,7 +12,7 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     echo 'Server = https://pacman_cache.aurum.lan/$repo/os/$arch' > /etc/pacman.d/mirrorlist && \
     trust anchor /ca.pem && update-ca-trust && rm /ca.pem && \
     pacman-key --init && \
-    pacman --noconfirm -Syu git gnupg base-devel python python-requests && \
+    pacman --noconfirm -Syu git gnupg base-devel python python-requests wget && \
     pacman --noconfirm -Scc && \
     mkdir -p /run/user/1000 && chown 1000:1000 /run/user/1000 && \
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers && \

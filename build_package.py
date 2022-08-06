@@ -4,6 +4,11 @@ import os
 import requests
 import sys
 
+def exit_if_failed(status):
+	if os.waitstatus_to_exitcode(status) != 0:
+		print("command failed")
+		exit(1)
+
 if len(sys.argv) != 2:
 	print("no package name passed!")
 	exit(1)
@@ -29,12 +34,12 @@ os.system(f'sudo mkdir -p {package}')
 os.system(f'sudo mv {package} {package}_old')
 
 # download new package files
-os.system(f'sudo wget https://aur.archlinux.org/cgit/aur.git/snapshot/{package}.tar.gz')
-os.system(f'sudo tar -xvf {package}.tar.gz')
+exit_if_failed(os.system(f'sudo wget https://aur.archlinux.org/cgit/aur.git/snapshot/{package}.tar.gz'))
+exit_if_failed(os.system(f'sudo tar -xvf {package}.tar.gz'))
 
 # move new files to {package}_tmp and reset name of old files
-os.system(f'sudo mv {package} {package}_tmp')
-os.system(f'sudo mv {package}_old {package}')
+exit_if_failed(os.system(f'sudo mv {package} {package}_tmp'))
+exit_if_failed(os.system(f'sudo mv {package}_old {package}'))
 
 if os.waitstatus_to_exitcode(os.system(f'diff -qrN {package} {package}_tmp')) != 0:
 	os.system(f'sudo git switch -c {package}')
