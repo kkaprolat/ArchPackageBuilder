@@ -16,8 +16,15 @@ if len(sys.argv) != 2:
 package = sys.argv[1]
 project_id = 1
 reviewer_id = 1
-endpoint = "https://git.aurum.lan/api/pull-requests"
+pull_endpoint = "https://git.aurum.lan/api/pull-requests"
+branch_endpoint = f"https://git.aurum.lan/api/repositories/{project_id}/branches"
 git_password = os.environ['GIT_PASSWORD']
+
+was_open = False
+r = requests.get(branch_endpoint, auth=('kay', git_password))
+if package in r.json(): # if there already is a pull request open, change there
+	os.system(f'git checkout {package}')
+	was_open = True
 
 pull_request_template = {"targetProjectId": project_id,
 	"sourceProjectId": project_id,
@@ -56,4 +63,7 @@ if os.waitstatus_to_exitcode(os.system(f'diff -qrN {package} {package}_tmp')) !=
 	os.system(f'git add .')
 	os.system(f'git commit -m "update {package}"')
 	os.system(f'git push -u origin {package}')
+
+	if not was_open:
+		requests.post(pull_endpoint, auth=('kay', git_password), data=pull_request_template)
 
