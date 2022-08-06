@@ -17,6 +17,7 @@ jobs:
   triggers:
   - !ScheduleTrigger
     cronExpression: 0 0 0/8 ? * * *
+  - !BranchUpdateTrigger {}
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
