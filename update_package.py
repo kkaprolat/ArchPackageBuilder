@@ -67,5 +67,5 @@ if os.waitstatus_to_exitcode(os.system(f'diff -qrN {package} {package}_tmp')) !=
 
 	if not was_open:
 		print("Creating Pull Request...")
-		r = requests.post(pull_endpoint, auth=('kay', git_password), data=pull_request_template)
+		r = requests.post(pull_endpoint, auth=('kay', git_password), data=json.dumps(pull_request_template))
 		r.raise_for_status()
