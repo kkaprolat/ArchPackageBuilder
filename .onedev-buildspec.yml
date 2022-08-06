@@ -11,7 +11,7 @@ jobs:
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   - !BuildImageStep
     name: Build
-    tags: kay/aurbuilder
+    tags: kay/aurbuilder:@build_number@
     publish: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
