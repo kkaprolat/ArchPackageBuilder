@@ -2,15 +2,16 @@
 
 import os
 import requests
+import subprocess
 import sys
 
 def exit_if_failed(status):
-	if os.waitstatus_to_exitcode(status) != 0:
+	if status.returncode != 0:
 		print("command failed")
 		exit(1)
 
 
-with open('packages', '') as package_file:
+with open('packages', 'r') as package_file:
     for package in package_file.readlines():
         print(f'Checking package `{package}`...')
         
@@ -25,12 +26,12 @@ with open('packages', '') as package_file:
         r = requests.get(branch_endpoint, auth=('kay', git_password))
         if package in r.json(): # if there already is a pull request open, change there
             print("Pull request already open...")
-            os.system(f'git remote set-branches origin "{package}"')
-            os.system(f'git checkout {package}')
+            subprocess.run(['git', 'remote', 'set-branches', 'origin', package])
+            subprocess.run(['git', 'checkout', package])
             was_open = True
         else:
             print("No old pull request found...")
-            os.system(f'git switch -c {package}')
+            subprocess.run(['git', 'switch', '-c', package])
 
         pull_request_template = {"targetProjectId": project_id,
             "sourceProjectId": project_id,
@@ -51,29 +52,29 @@ with open('packages', '') as package_file:
 
 
         # backup old package files so new ones don't overwrite
-        os.system(f'mkdir -p {package}')
-        os.system(f'mv {package} {package}_old')
+        subprocess.run(['mkdir', '-p', package])
+        subprocess.run(['mv', package, f'{package}_old'])
 
         # download new package files
-        exit_if_failed(os.system(f'wget https://aur.archlinux.org/cgit/aur.git/snapshot/{package}.tar.gz'))
-        exit_if_failed(os.system(f'tar -xvf {package}.tar.gz'))
+        exit_if_failed(subprocess.run(['wget', f'https://aur.archlinux.org/cgit/aur.git/snapshot/{package}.tar.gz']))
+        exit_if_failed(subprocess.run(['tar', '-xvf', f'{package}.tar.gz']))
 
         # move new files to {package}_tmp and reset name of old files
-        exit_if_failed(os.system(f'mv {package} {package}_tmp'))
-        exit_if_failed(os.system(f'mv {package}_old {package}'))
+        exit_if_failed(subprocess.run(['mv', package, f'{package}_tmp']))
+        exit_if_failed(subprocess.run(['mv', f'{package}_old', package]))
 
-        if os.waitstatus_to_exitcode(os.system(f'diff -qrN {package} {package}_tmp')) != 0:
+        if subprocess.run(['diff', '-qrN', package, f'{package}_tmp']).returncode != 0:
             # in any case we are on the package branch here
-            os.system(f'rm -rf {package}')
-            os.system(f'mv {package}_tmp {package}')
-            os.system(f'git add .')
-            os.system(f'git commit -m "update {package}"')
+            subprocess.run(['rm', '-rf', package])
+            subprocess.run(['mv', f'{package}_tmp', package])
+            subprocess.run(['git', 'add', '.'])
+            subprocess.run(['git', 'commit', '-m', f'update {package}'])
 
             if not was_open: # create new branch and pull request
-                os.system(f'git push -u origin {package}')
+                subprocess.run(['git', 'push', '-u', 'origin', package])
                 print("Creating Pull Request...")
                 r = requests.post(pull_endpoint, auth=('kay', git_password), json=pull_request_template)
                 r.raise_for_status()
             else: # just update old branch
-                os.system(f'git push')
+                subprocess.run(['git', 'push'])
 
