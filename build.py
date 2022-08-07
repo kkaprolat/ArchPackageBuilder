@@ -21,8 +21,8 @@ if subprocess.run(['makepkg', '--syncdeps', '--noconfirm']).returncode == 0:
     # remove source branch and pull request
     r = requests.post(pull_endpoint + '/delete-source-branch', auth=('kay', git_pass))
     r.raise_for_status()
-    r = requests.delete(pull_endpoint, auth=('kay', git_pass))
-    r.raise_for_status()
+#   r = requests.delete(pull_endpoint, auth=('kay', git_pass))
+#   r.raise_for_status()
     # we now have <pkg>.tar.gz
     subprocess.run(['ls', '-lAh'])
 else:
