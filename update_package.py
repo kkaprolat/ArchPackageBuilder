@@ -27,6 +27,7 @@ with open('packages', 'r') as package_file:
         if package in r.json(): # if there already is a pull request open, change there
             print("Pull request already open...")
             subprocess.run(['git', 'remote', 'set-branches', 'origin', package])
+			subprocess.run(['git', 'fetch', '-v', '--depth=1'])
             subprocess.run(['git', 'checkout', package])
             was_open = True
         else:
