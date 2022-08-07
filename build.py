@@ -15,7 +15,7 @@ r = requests.get(pull_endpoint, auth=('kay', git_pass))
 project = r.json()['sourceBranch']
 
 subprocess.run(['sudo', 'chown', '--recursive', '1000:1000', project])
-subprocess.run(['cd', project])
+os.chdir(project)
 # makepkg should run sudo automatically
 if subprocess.run(['makepkg', '--syncdeps']).returncode == 0:
     # remove source branch and pull request
