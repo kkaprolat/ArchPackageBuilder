@@ -24,13 +24,11 @@ print(f'Deploying `{project}`...')
 subprocess.run(['mkdir', 'tmp'], check=True)
 os.chdir('tmp')
 subprocess.run(['rsync', '-a', '--delete', 'root@10.0.0.102:/srv/packages/custom/', '.'], check=True)
-subprocess.run(['pwd'])
-subprocess.run(['ls', '-lAh'])
+
+if 'custom.db.tar.gz' not in os.listdir():
+    print('AUR repo not initialized, initializing repo...')
+    subprocess.run(['repo-add', 'custom.db.tar.gz'], check=True)
 
 subprocess.run(f'repo-add --remove custom.db.tar.gz ../{project}/*.pkg.tar.zst', check=True, shell=True)
-subprocess.run(['pwd'])
-subprocess.run(['ls', '-lAh'])
 
 subprocess.run(['rsync', '-a', '--delete', './', 'root@10.0.0.102:/srv/packages/custom'], check=True)
-subprocess.run(['pwd'])
-subprocess.run(['ls', '-lAh'])
