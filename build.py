@@ -24,6 +24,7 @@ if subprocess.run(['makepkg', '--syncdeps', '--noconfirm']).returncode == 0:
 #   r = requests.delete(pull_endpoint, auth=('kay', git_pass))
 #   r.raise_for_status()
     # we now have <pkg>.tar.gz
+    subprocess.run(['pwd'])
     subprocess.run(['ls', '-lAh'])
 else:
     print("Build failure!")
