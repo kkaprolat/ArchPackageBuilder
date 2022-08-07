@@ -10,5 +10,5 @@ elif [[ $1 == 'build' ]]; then
         sudo pacman --noconfirm -Syu
         exec /build.py
 elif [[ $1 == 'deploy' ]]; then
-        exec /deploy.py
+        exec sudo --preserve-env=GIT_PASS --preserve-env=MERGE_ID --preserve-env=SSH_KEY /deploy.py
 fi
