@@ -29,6 +29,9 @@ with open('packages', 'r') as package_file:
         package = package.strip('\n')
         print(f'Checking package `{package}`...')
 
+        # switch to master in any case to avoid polluting other branches
+        subprocess.run(['git', 'checkout', 'master'])
+
         was_open = False
         r = requests.get(branch_endpoint, auth=('kay', git_password))
         if package in r.json(): # if there already is a pull request open, change there
