@@ -11,7 +11,7 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     echo 'Server = https://pacman_cache.aurum.lan/$repo/os/$arch' > /etc/pacman.d/mirrorlist && \
     trust anchor /ca.pem && update-ca-trust && rm /ca.pem && \
     pacman-key --init && \
-    pacman --noconfirm -Syu git python python-requests wget base-devel rsync && \
+    pacman --noconfirm -Syu git python python-requests wget base-devel rsync openssh && \
     pacman --noconfirm -Scc && \
     chmod +x /update_package.py && \
     chmod +x /build.py && \
