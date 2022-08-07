@@ -26,7 +26,7 @@ with open('/root/.netrc', 'w') as f:
 
 with open('packages', 'r') as package_file:
     for package in package_file.readlines():
-		package = package.strip('\n')
+        package = package.strip('\n')
         print(f'Checking package `{package}`...')
 
         was_open = False
