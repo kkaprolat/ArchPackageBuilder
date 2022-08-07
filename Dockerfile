@@ -16,6 +16,10 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     chmod +x /build.py && \
     chmod +x /entrypoint.sh && \
     git config --global user.email "kakaoh6@gmail.com" && \
-    git config --global user.name "Kay Kaprolat"
+    git config --global user.name "Kay Kaprolat" && \
+    useradd --uid 1000 --shell /bin/bash --groups wheel aur && \
+    echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+USER aur
 
 ENTRYPOINT ["/entrypoint.sh"]
