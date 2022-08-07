@@ -27,7 +27,7 @@ subprocess.run(['rsync', '-a', '--delete', 'root@10.0.0.102:/srv/packages/custom
 subprocess.run(['pwd'])
 subprocess.run(['ls', '-lAh'])
 
-subprocess.run(f'repo-add --remove custom.tar.gz ../{project}/*.pkg.tar.zst', check=True, shell=True)
+subprocess.run(f'repo-add --remove custom.db.tar.gz ../{project}/*.pkg.tar.zst', check=True, shell=True)
 subprocess.run(['pwd'])
 subprocess.run(['ls', '-lAh'])
 
