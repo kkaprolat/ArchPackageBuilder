@@ -5,7 +5,7 @@ if [[ -z $1 ]]; then
 fi
 
 if [[ $1 == 'update' ]]; then
-        exec sudo /update_package.py
+        exec sudo -E /update_package.py
 elif [[ $1 == 'build' ]]; then
         sudo pacman --noconfirm -Syu
         exec /build.py
