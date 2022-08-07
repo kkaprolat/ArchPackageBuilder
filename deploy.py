@@ -12,9 +12,9 @@ project_id = 1
 reviewer_id = 1
 pull_endpoint = f"https://git.aurum.lan/api/pull-requests/{pull_id}"
 
-with open(os.path.expanduser('/root/.ssh/id_ed25519'), 'w') as keyfile:
+with open('/root/.ssh/id_ed25519', 'w') as keyfile:
     keyfile.write(ssh_key)
-os.chmod(os.path.expanduser('/root/.ssh/id_ed25519'), 0o600)
+os.chmod('/root/.ssh/id_ed25519', 0o600)
 
 r = requests.get(pull_endpoint, auth=('kay', git_pass))
 project = r.json()['sourceBranch']
