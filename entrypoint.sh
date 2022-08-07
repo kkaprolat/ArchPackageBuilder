@@ -9,4 +9,6 @@ if [[ $1 == 'update' ]]; then
 elif [[ $1 == 'build' ]]; then
         sudo pacman --noconfirm -Syu
         exec /build.py
+elif [[ $1 == 'deploy' ]]; then
+        exec /deploy.py
 fi
