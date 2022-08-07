@@ -23,9 +23,6 @@ project = r.json()['sourceBranch']
 
 print(f'Deploying `{project}`...')
 
-subprocess.run(['pwd'])
-subprocess.run(['ls', '-lAh'])
-
 subprocess.run(['mkdir', 'tmp'])
 os.chdir('tmp')
 subprocess.run(['rsync', '-a', '--delete', 'root@10.0.0.102:/srv/packages/custom', '.'])
