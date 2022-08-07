@@ -19,7 +19,8 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     chmod +x /entrypoint.sh && \
     git config --global user.email "kakaoh6@gmail.com" && \
     git config --global user.name "Kay Kaprolat" && \
-    useradd --uid 1000 --shell /bin/bash --groups wheel aur && \
+    useradd --uid 1000 --shell /bin/bash --groups wheel --create-home aur && \
+    mkdir --mode=700 -p /home/aur/.ssh && \
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 USER aur
