@@ -11,16 +11,22 @@ def exit_if_failed(status):
 		exit(1)
 
 
+project_id = 1
+reviewer_id = 1
+pull_endpoint = "https://git.aurum.lan/api/pull-requests"
+branch_endpoint = f"https://git.aurum.lan/api/repositories/{project_id}/branches"
+git_password = os.environ['GIT_PASSWORD']
+
+login_template = f"""machine git.aurum.lan
+  login kay
+  password {git_password}"""
+
+with open('/root/.netrc', 'w') as f:
+    f.write(login_template)
+
 with open('packages', 'r') as package_file:
     for package in package_file.readlines():
         print(f'Checking package `{package}`...')
-        
-        package = sys.argv[1]
-        project_id = 1
-        reviewer_id = 1
-        pull_endpoint = "https://git.aurum.lan/api/pull-requests"
-        branch_endpoint = f"https://git.aurum.lan/api/repositories/{project_id}/branches"
-        git_password = os.environ['GIT_PASSWORD']
 
         was_open = False
         r = requests.get(branch_endpoint, auth=('kay', git_password))
@@ -43,13 +49,6 @@ with open('packages', 'r') as package_file:
             "mergeStrategy": "CREATE_MERGE_COMMIT",
             "reviewerIds": [],
             "assigneeIds": []}
-
-        login_template = f"""machine git.aurum.lan
-          login kay
-          password {git_password}"""
-
-        with open('/root/.netrc', 'w') as f:
-            f.write(login_template)
 
 
         # backup old package files so new ones don't overwrite
