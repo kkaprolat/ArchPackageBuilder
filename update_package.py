@@ -10,7 +10,7 @@ def exit_if_failed(status):
 		exit(1)
 
 
-with open('packages', '') as package_file:
+with open('packages', 'r') as package_file:
     for package in package_file.readlines():
         print(f'Checking package `{package}`...')
         
