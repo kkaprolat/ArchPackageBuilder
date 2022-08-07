@@ -12,6 +12,8 @@ project_id = 1
 reviewer_id = 1
 pull_endpoint = f"https://git.aurum.lan/api/pull-requests/{pull_id}"
 
+subprocess.run(['ls', '-lAh', '/root'])
+subprocess.run(['ls', '-lAh', '/root/.ssh'])
 with open('/root/.ssh/id_ed25519', 'w') as keyfile:
     keyfile.write(ssh_key)
 os.chmod('/root/.ssh/id_ed25519', 0o600)
