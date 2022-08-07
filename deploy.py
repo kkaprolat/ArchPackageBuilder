@@ -30,6 +30,6 @@ if 'custom.db.tar.gz' not in os.listdir():
     subprocess.run(['repo-add', 'custom.db.tar.gz'], check=True)
 
 subprocess.run([f'cp ../{project}/*.pkg.tar.zst .'], check=True, shell=True)
-subprocess.run(f'repo-add --remove custom.db.tar.gz ../{project}/*.pkg.tar.zst', check=True, shell=True)
+subprocess.run(f'repo-add --remove custom.db.tar.gz *.pkg.tar.zst', check=True, shell=True)
 
 subprocess.run(['rsync', '-a', '--delete', './', 'root@10.0.0.102:/srv/packages/custom'], check=True)
