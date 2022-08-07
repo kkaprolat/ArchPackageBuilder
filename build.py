@@ -20,7 +20,7 @@ os.chdir(project)
 if subprocess.run(['makepkg', '--syncdeps', '--noconfirm']).returncode == 0:
     # remove source branch and pull request
     r = requests.post(pull_endpoint + '/delete-source-branch', auth=('kay', git_pass))
-    r.raise_for_status()
+    # source branch may have been deleted, so don't fail if deletion fails
 #   r = requests.delete(pull_endpoint, auth=('kay', git_pass))
 #   r.raise_for_status()
     # we now have <pkg>.tar.gz
