@@ -23,14 +23,14 @@ print(f'Deploying `{project}`...')
 
 subprocess.run(['mkdir', 'tmp'], check=True)
 os.chdir('tmp')
-subprocess.run(['rsync', '-a', '--delete', 'root@10.0.0.102:/srv/packages/custom', '.'], check=True)
+subprocess.run(['rsync', '-a', '--delete', 'root@10.0.0.102:/srv/packages/custom/', '.'], check=True)
 subprocess.run(['pwd'])
 subprocess.run(['ls', '-lAh'])
 
-subprocess.run(['repo-add', '--remove', f'../{project}/*.pkg.tar.zst'], check=True)
+subprocess.run(f'repo-add --remove ../{project}/*.pkg.tar.zst', check=True, shell=True)
 subprocess.run(['pwd'])
 subprocess.run(['ls', '-lAh'])
 
-subprocess.run(['rsync', '-a', '--delete', '.', 'root@10.0.0.102:/srv/packages/custom'], check=True)
+subprocess.run(['rsync', '-a', '--delete', './', 'root@10.0.0.102:/srv/packages/custom'], check=True)
 subprocess.run(['pwd'])
 subprocess.run(['ls', '-lAh'])
