@@ -21,6 +21,8 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     git config --global user.name "Kay Kaprolat" && \
     useradd --uid 1000 --shell /bin/bash --groups wheel --create-home aur && \
     mkdir --mode=600 /root/.ssh && \
+    echo '10.0.0.102 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDcZ2ZxaIhpJ1ZBhuJ4wrVwwMiU7OalhARmJmpFbY/dO' >> /root/.ssh/known_hosts && \
+    chmod 600 /root/.ssh/known_hosts && \
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 USER aur
