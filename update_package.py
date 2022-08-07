@@ -79,4 +79,6 @@ with open('packages', 'r') as package_file:
                 r.raise_for_status()
             else: # just update old branch
                 subprocess.run(['git', 'push'], check=True)
+        else: # no differences found, discard tmp
+            subprocess.run(['rm', '-rf', f'{package}_tmp'])
 
