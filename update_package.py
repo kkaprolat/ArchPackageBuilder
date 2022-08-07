@@ -64,6 +64,7 @@ with open('packages', 'r') as package_file:
         # download new package files
         exit_if_failed(subprocess.run(['wget', f'https://aur.archlinux.org/cgit/aur.git/snapshot/{package}.tar.gz']))
         exit_if_failed(subprocess.run(['tar', '-xvf', f'{package}.tar.gz']))
+        exit_if_failed(subprocess.run(['rm', f'{package}.tar.gz']))
 
         # move new files to {package}_tmp and reset name of old files
         exit_if_failed(subprocess.run(['mv', package, f'{package}_tmp']))
