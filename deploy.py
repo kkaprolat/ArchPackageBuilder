@@ -12,8 +12,6 @@ project_id = 1
 reviewer_id = 1
 pull_endpoint = f"https://git.aurum.lan/api/pull-requests/{pull_id}"
 
-subprocess.run(['ls', '-lAh', '/root'])
-subprocess.run(['ls', '-lAh', '/root/.ssh'])
 with open('/root/.ssh/id_ed25519', 'w') as keyfile:
     keyfile.write(ssh_key)
 os.chmod('/root/.ssh/id_ed25519', 0o600)
@@ -23,16 +21,16 @@ project = r.json()['sourceBranch']
 
 print(f'Deploying `{project}`...')
 
-subprocess.run(['mkdir', 'tmp'])
+subprocess.run(['mkdir', 'tmp'], check=True)
 os.chdir('tmp')
-subprocess.run(['rsync', '-a', '--delete', 'root@10.0.0.102:/srv/packages/custom', '.'])
+subprocess.run(['rsync', '-a', '--delete', 'root@10.0.0.102:/srv/packages/custom', '.'], check=True)
 subprocess.run(['pwd'])
 subprocess.run(['ls', '-lAh'])
 
-subprocess.run(['repo-add', '--remove', f'../{project}/*.pkg.tar.zst'])
+subprocess.run(['repo-add', '--remove', f'../{project}/*.pkg.tar.zst'], check=True)
 subprocess.run(['pwd'])
 subprocess.run(['ls', '-lAh'])
 
-subprocess.run(['rsync', '-a', '--delete', '.', 'root@10.0.0.102:/srv/packages/custom'])
+subprocess.run(['rsync', '-a', '--delete', '.', 'root@10.0.0.102:/srv/packages/custom'], check=True)
 subprocess.run(['pwd'])
 subprocess.run(['ls', '-lAh'])
