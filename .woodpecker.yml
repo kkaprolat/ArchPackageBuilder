@@ -1,7 +1,12 @@
+clone:
+  git:
+    image: woodpeckerci/plugin-git
+    settings:
+      custom_ssl_path: ./ca.pem
+
 pipeline:
   build:
     image: plugins/docker
     settings:
       repo: kay/ArchPackageBuilder
       tags: latest
-
