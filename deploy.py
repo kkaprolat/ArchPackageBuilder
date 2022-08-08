@@ -29,6 +29,8 @@ if 'custom.db.tar.gz' not in os.listdir():
     print('AUR repo not initialized, initializing repo...')
     subprocess.run(['repo-add', 'custom.db.tar.gz'], check=True)
 
+# TODO: get list of *created* zst files and only use these in repo-add
+# otherwise packages that were already built are re-added...
 subprocess.run([f'cp ../{project}/*.pkg.tar.zst .'], check=True, shell=True)
 subprocess.run(f'repo-add --remove custom.db.tar.gz *.pkg.tar.zst', check=True, shell=True)
 
