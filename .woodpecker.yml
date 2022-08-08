@@ -1,8 +1,8 @@
 clone:
   git:
     image: woodpeckerci/plugin-git
-    settings:
-      custom_ssl_path: /etc/ssl/certs/ca-certificates.crt
+    volumes:
+      - /etc/ssl/certs:/etc/ssl/certs
 
 pipeline:
   build:
