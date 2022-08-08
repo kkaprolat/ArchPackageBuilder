@@ -4,3 +4,4 @@ pipeline:
     settings:
       repo: kay/ArchPackageBuilder
       tags: latest
+
