@@ -5,7 +5,6 @@ COPY update_package.py /update_package.py
 COPY build.py /build.py
 COPY deploy.py /deploy.py
 COPY entrypoint.sh /entrypoint.sh
-COPY /etc/resolv.conf /etc/resolv.conf
 
 RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf && \
     sed -i 's/ParallelDownloads = 5/ParallelDownloads = 10/g' /etc/pacman.conf && \
