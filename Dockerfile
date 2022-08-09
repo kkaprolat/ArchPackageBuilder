@@ -10,6 +10,7 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     sed -i 's/ParallelDownloads = 5/ParallelDownloads = 10/g' /etc/pacman.conf && \
     echo 'Server = https://pacman_cache.aurum.lan/$repo/os/$arch' > /etc/pacman.d/mirrorlist && \
     trust anchor /ca.pem && update-ca-trust && rm /ca.pem && \
+    cat /etc/resolv.conf && \
     pacman-key --init && \
     pacman --noconfirm -Syu git python python-requests wget base-devel rsync openssh && \
     pacman --noconfirm -Scc && \
