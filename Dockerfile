@@ -23,8 +23,9 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 USER aur
-COPY aurutils /aurutils
+COPY --chown=aur aurutils /aurutils
 RUN cd /aurutils && \
-    makepkg -si
+    makepkg -si && \
+    rm -rf /aurutils
 
 ENTRYPOINT ["/entrypoint.sh"]
