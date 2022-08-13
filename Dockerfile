@@ -26,6 +26,6 @@ USER aur
 COPY --chown=aur aurutils /aurutils
 RUN cd /aurutils && \
     makepkg -si --noconfirm && \
-    rm -rf /aurutils
+    sudo rm -rf /aurutils
 
 ENTRYPOINT ["/entrypoint.sh"]
