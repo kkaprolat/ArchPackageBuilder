@@ -22,8 +22,8 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
 
 USER aur
 COPY --chown=aur aurutils /aurutils
-RUN cd /aurutils && \
+RUN git config --global user.email "kakaoh6@gmail.com" && \
+    git config --global user.name "Kay Kaprolat" && \
+    cd /aurutils && \
     makepkg -si --noconfirm && \
-    sudo rm -rf /aurutils && \
-    git config --global user.email "kakaoh6@gmail.com" && \
-    git config --global user.name "Kay Kaprolat"
+    sudo rm -rf /aurutils
