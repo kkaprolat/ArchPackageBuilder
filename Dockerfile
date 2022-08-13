@@ -28,4 +28,4 @@ RUN cd /aurutils && \
     makepkg -si --noconfirm && \
     sudo rm -rf /aurutils
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash"]
