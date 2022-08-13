@@ -26,4 +26,4 @@ RUN cd /aurutils && \
     makepkg -si --noconfirm && \
     sudo rm -rf /aurutils && \
     git config --global user.email "kakaoh6@gmail.com" && \
-    git config --global user.name "Kay Kaprolat" && \
+    git config --global user.name "Kay Kaprolat"
