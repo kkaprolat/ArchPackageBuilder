@@ -26,6 +26,6 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
 USER aur
 
 RUN cd /aurutils && \
-    sudo makepkg -si
+    makepkg -si
 
 ENTRYPOINT ["/entrypoint.sh"]
