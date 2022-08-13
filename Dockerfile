@@ -5,6 +5,7 @@ COPY update_package.py /update_package.py
 COPY build.py /build.py
 COPY deploy.py /deploy.py
 COPY entrypoint.sh /entrypoint.sh
+COPY aurutils /aurutils
 
 RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf && \
     sed -i 's/ParallelDownloads = 5/ParallelDownloads = 10/g' /etc/pacman.conf && \
@@ -20,11 +21,11 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     git config --global user.email "kakaoh6@gmail.com" && \
     git config --global user.name "Kay Kaprolat" && \
     useradd --uid 1000 --shell /bin/bash --groups wheel --create-home aur && \
-    mkdir --mode=600 /root/.ssh && \
-    echo '10.0.0.102 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDcZ2ZxaIhpJ1ZBhuJ4wrVwwMiU7OalhARmJmpFbY/dO' >> /root/.ssh/known_hosts && \
-    chmod 600 /root/.ssh/known_hosts && \
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 USER aur
+
+RUN cd /aurutils && \
+    sudo makepkg -si
 
 ENTRYPOINT ["/entrypoint.sh"]
