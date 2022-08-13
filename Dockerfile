@@ -27,5 +27,3 @@ COPY --chown=aur aurutils /aurutils
 RUN cd /aurutils && \
     makepkg -si --noconfirm && \
     sudo rm -rf /aurutils
-
-ENTRYPOINT ["/bin/bash"]
