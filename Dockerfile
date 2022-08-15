@@ -19,6 +19,7 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     chmod +x /entrypoint.sh && \
     useradd --uid 1000 --shell /bin/bash --groups wheel --create-home aur && \
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers && \
+    mkdir -p /etc/gnupg && \
     echo 'auto-key-retrieve' >> /etc/gnupg/gpg.conf
 
 USER aur
