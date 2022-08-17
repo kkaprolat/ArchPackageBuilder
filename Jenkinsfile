@@ -6,6 +6,6 @@ node {
         }
 
         stage('Build image') {
-                app = docker.build("kay/aurbuilder:latest")
+                app = docker.build("kay/aurbuilder:latest", "--no-cache --pull .")
         }
 }
