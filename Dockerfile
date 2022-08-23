@@ -12,6 +12,11 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     echo 'Server = https://pacman_cache.aurum.lan/$repo/os/$arch' > /etc/pacman.d/mirrorlist && \
     trust anchor /ca.pem && update-ca-trust && rm /ca.pem && \
     pacman-key --init && \
+    pacman-key --add /key.pub && \
+    pacman-key --lsign-key 36B0B760D0BC85899E38C2DF1F4C5EB20814A291 && \
+    echo '[custom]' >> /etc/pacman.conf && \
+    echo 'Server = https://packages.aurum.lan/$repo' && \
+    pacman -Sy && \
     pacman --noconfirm --needed -Syu git gnupg python python-requests wget base-devel rsync openssh && \
     pacman --noconfirm -Scc && \
     chmod +x /update_package.py && \
@@ -21,8 +26,7 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     useradd --uid 1000 --shell /bin/bash --groups wheel --create-home aur && \
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers && \
     mkdir -p /etc/gnupg && \
-    echo 'auto-key-retrieve' >> /etc/gnupg/gpg.conf && \
-    gpg --import /key.pub
+    echo 'auto-key-retrieve' >> /etc/gnupg/gpg.conf
 
 USER aur
 COPY --chown=aur aurutils /aurutils
@@ -30,5 +34,4 @@ RUN git config --global user.email "nobody@nobody.com" && \
     git config --global user.name "Jenkins" && \
     cd /aurutils && \
     makepkg -si --noconfirm && \
-    gpg --import /key.pub && \
     sudo rm -rf /aurutils
