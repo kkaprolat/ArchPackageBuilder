@@ -5,6 +5,7 @@ COPY update_package.py /update_package.py
 COPY build.py /build.py
 COPY deploy.py /deploy.py
 COPY entrypoint.sh /entrypoint.sh
+COPY key.pub /key.pub
 
 RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf && \
     sed -i 's/ParallelDownloads = 5/ParallelDownloads = 10/g' /etc/pacman.conf && \
@@ -20,7 +21,8 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     useradd --uid 1000 --shell /bin/bash --groups wheel --create-home aur && \
     echo '%wheel ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers && \
     mkdir -p /etc/gnupg && \
-    echo 'auto-key-retrieve' >> /etc/gnupg/gpg.conf
+    echo 'auto-key-retrieve' >> /etc/gnupg/gpg.conf && \
+    gpg --import /key.pub
 
 USER aur
 COPY --chown=aur aurutils /aurutils
@@ -28,4 +30,5 @@ RUN git config --global user.email "nobody@nobody.com" && \
     git config --global user.name "Jenkins" && \
     cd /aurutils && \
     makepkg -si --noconfirm && \
+    gpg --import /key.pub && \
     sudo rm -rf /aurutils
