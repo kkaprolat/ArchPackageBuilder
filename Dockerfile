@@ -17,7 +17,7 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     echo '[custom]' >> /etc/pacman.conf && \
     echo 'Server = https://packages.aurum.lan/$repo' >> /etc/pacman.conf && \
     pacman -Sy && \
-    pacman --noconfirm --needed -Syu git gnupg python python-requests wget base-devel rsync openssh && \
+    pacman --noconfirm --needed -Syu git gnupg python python-requests wget base-devel rsync openssh unzip && \
     pacman --noconfirm -Scc && \
     chmod +x /update_package.py && \
     chmod +x /build.py && \
