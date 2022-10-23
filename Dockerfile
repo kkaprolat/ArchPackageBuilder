@@ -7,8 +7,8 @@ COPY deploy.py /deploy.py
 COPY entrypoint.sh /entrypoint.sh
 COPY key.pub /key.pub
 
-RUN sed -i 's/^#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' && \
-    sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' && \
+RUN sed -i 's/^#de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen && \
+    sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen && \
     echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirrorlist' >> /etc/pacman.conf && \
     sed -i 's/ParallelDownloads = 5/ParallelDownloads = 10/g' /etc/pacman.conf && \
