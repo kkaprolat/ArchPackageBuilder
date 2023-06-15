@@ -38,4 +38,6 @@ RUN git config --global user.email "nobody@nobody.com" && \
     git config --global user.name "Jenkins" && \
     cd /aurutils && \
     makepkg -si --noconfirm && \
-    sudo rm -rf /aurutils
+    sudo rm -rf /aurutils && \
+    sudo pacman --noconfirm -Syu aurutils || echo 'Could not install aurutils from repo.'
+
