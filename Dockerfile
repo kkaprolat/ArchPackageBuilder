@@ -21,7 +21,7 @@ RUN echo '[multilib]' >> /etc/pacman.conf && echo 'Include = /etc/pacman.d/mirro
     sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     sed -iE '\|^NoExtract\s*= !usr/share/\*locales/en|a NoExtract = !usr/share/*locales/de_DE !usr/share/*locales/i18n* !usr/share/*locales/iso*' /etc/pacman.conf && \
     pacman --noconfirm -Syu glibc && \
-    pacman --noconfirm --needed -Syu git gnupg python python-requests wget base-devel rsync openssh unzip rust && \
+    pacman --noconfirm --needed -Syu git gnupg python python-requests wget base-devel rsync openssh unzip rustup && \
     pacman --noconfirm -Scc && \
     chmod +x /update_package.py && \
     chmod +x /build.py && \
